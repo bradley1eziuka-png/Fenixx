@@ -290,30 +290,79 @@
     .mat-chip:hover { border-color: var(--accent); color: var(--accent-l); background: var(--accent-glow); }
     .mat-chip.hi { border-color: rgba(200,131,30,0.42); color: var(--accent-l); background: var(--accent-glow); }
 
-    /* Machine table */
-    .machine-table-wrap { margin-top: 4rem; }
-    .machine-table-title {
-      font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 600;
-      letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-2);
-      margin-bottom: 1.25rem;
+    /* Machine fleet cards */
+    .fleet-wrap { margin-top: 5rem; }
+    .fleet-header {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      padding-bottom: 1.75rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 0;
     }
-    .machine-table { background: var(--surface); border: 1px solid var(--border); width: 100%; border-collapse: collapse; overflow-x: auto; display: block; }
-    .machine-table th {
-      padding: 1rem 1.5rem; text-align: left;
+    .fleet-header-left { display: flex; flex-direction: column; gap: 0.4rem; }
+    .fleet-eyebrow {
       font-family: 'Barlow Condensed', sans-serif; font-size: 0.68rem; font-weight: 600;
-      letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-2);
-      border-bottom: 1px solid var(--border); background: var(--elevated);
+      letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent);
     }
-    .machine-table td {
-      padding: 1rem 1.5rem;
-      font-family: 'Barlow Condensed', sans-serif; font-size: 0.95rem;
-      border-bottom: 1px solid rgba(255,255,255,0.07);
+    .fleet-heading {
+      font-family: 'Barlow Condensed', sans-serif; font-size: 1.85rem; font-weight: 700;
+      letter-spacing: -0.01em; text-transform: uppercase; color: var(--text); line-height: 1;
     }
-    .machine-table tbody tr:last-child td { border-bottom: none; }
-    .machine-table tbody tr:hover td { background: rgba(255,255,255,0.018); }
-    .machine-table .model { color: var(--text); font-weight: 600; }
-    .machine-table .size { color: var(--accent-l); font-weight: 500; }
-    .machine-table .app { color: var(--text-2); font-size: 0.875rem; }
+    .fleet-capacity {
+      font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-2); text-align: right;
+    }
+    .fleet-capacity strong { display: block; font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--text); letter-spacing: 0.02em; line-height: 1; }
+    .fleet-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      border-left: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .fleet-card {
+      position: relative; padding: 2.25rem 2rem 2rem;
+      border-right: 1px solid var(--border);
+      border-top: 1px solid var(--border);
+      overflow: hidden;
+      transition: background 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .fleet-card::after {
+      content: '';
+      position: absolute; top: 0; left: 0; width: 3px; height: 100%;
+      background: linear-gradient(180deg, var(--accent) 0%, transparent 100%);
+      transform: scaleY(0); transform-origin: top;
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .fleet-card:hover { background: var(--elevated); }
+    .fleet-card:hover::after { transform: scaleY(1); }
+    .fleet-index {
+      font-family: 'Bebas Neue', sans-serif; font-size: 0.95rem; letter-spacing: 0.12em;
+      color: var(--accent); margin-bottom: 1.25rem; display: block;
+    }
+    .fleet-model {
+      font-family: 'Barlow Condensed', sans-serif; font-size: 1.05rem; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase; color: var(--text);
+      margin-bottom: 1.5rem; line-height: 1.2;
+    }
+    .fleet-size-val {
+      font-family: 'Bebas Neue', sans-serif; font-size: 2.6rem; color: var(--text);
+      line-height: 1; letter-spacing: 0.01em;
+    }
+    .fleet-size-val span { color: var(--accent-l); }
+    .fleet-size-lbl {
+      font-family: 'Barlow Condensed', sans-serif; font-size: 0.62rem; font-weight: 600;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-m);
+      margin-top: 0.25rem; margin-bottom: 1.25rem;
+    }
+    .fleet-divider { height: 1px; background: var(--border); margin-bottom: 1.25rem; }
+    .fleet-app {
+      font-family: 'Barlow', sans-serif; font-size: 0.8rem; color: var(--text-2);
+      line-height: 1.55;
+    }
+    @media (max-width: 900px) {
+      .fleet-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 520px) {
+      .fleet-grid { grid-template-columns: 1fr; }
+    }
 
     /* ── WHY FENIXX ────────────────────────────────── */
     #why {
@@ -696,24 +745,52 @@
         </div>
       </div>
 
-      <!-- Machine fleet table -->
-      <div class="machine-table-wrap fade-up">
-        <div class="machine-table-title">Waterjet Machine Fleet</div>
-        <table class="machine-table" aria-label="Machine fleet specifications">
-          <thead>
-            <tr>
-              <th scope="col">Model</th>
-              <th scope="col">Table Size</th>
-              <th scope="col">Application</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td class="model">MW-X4-1220</td><td class="size">12′ × 20′</td><td class="app">Large-format precision cutting</td></tr>
-            <tr><td class="model">Suprema DX 1020</td><td class="size">10′ × 20′</td><td class="app">Mid-range production runs</td></tr>
-            <tr><td class="model">Suprema DX 826</td><td class="size">8′ × 26′</td><td class="app">Wide-format specialty cutting</td></tr>
-            <tr><td class="model">Suprema DX 612 (×2)</td><td class="size">6′ × 12′</td><td class="app">High-volume small-part precision</td></tr>
-          </tbody>
-        </table>
+      <!-- Machine fleet cards -->
+      <div class="fleet-wrap fade-up">
+        <div class="fleet-header">
+          <div class="fleet-header-left">
+            <span class="fleet-eyebrow">5 CNC Systems</span>
+            <div class="fleet-heading">Waterjet Machine Fleet</div>
+          </div>
+          <div class="fleet-capacity">
+            Max table size<br>
+            <strong>12′ × 20′</strong>
+          </div>
+        </div>
+        <div class="fleet-grid">
+          <div class="fleet-card">
+            <span class="fleet-index">01</span>
+            <div class="fleet-model">MW-X4-1220</div>
+            <div class="fleet-size-val">12′<span> × </span>20′</div>
+            <div class="fleet-size-lbl">Table Size</div>
+            <div class="fleet-divider"></div>
+            <div class="fleet-app">Large-format precision cutting — ideal for oversized aerospace panels and structural components.</div>
+          </div>
+          <div class="fleet-card">
+            <span class="fleet-index">02</span>
+            <div class="fleet-model">Suprema DX 1020</div>
+            <div class="fleet-size-val">10′<span> × </span>20′</div>
+            <div class="fleet-size-lbl">Table Size</div>
+            <div class="fleet-divider"></div>
+            <div class="fleet-app">Mid-range production runs with high repeatability for defense program parts.</div>
+          </div>
+          <div class="fleet-card">
+            <span class="fleet-index">03</span>
+            <div class="fleet-model">Suprema DX 826</div>
+            <div class="fleet-size-val">8′<span> × </span>26′</div>
+            <div class="fleet-size-lbl">Table Size</div>
+            <div class="fleet-divider"></div>
+            <div class="fleet-app">Wide-format specialty cutting for long-run extrusions and extended geometry work.</div>
+          </div>
+          <div class="fleet-card">
+            <span class="fleet-index">04 – 05</span>
+            <div class="fleet-model">Suprema DX 612 ×2</div>
+            <div class="fleet-size-val">6′<span> × </span>12′</div>
+            <div class="fleet-size-lbl">Table Size (each)</div>
+            <div class="fleet-divider"></div>
+            <div class="fleet-app">Dual-system configuration for high-volume small-part precision and concurrent schedule flexibility.</div>
+          </div>
+        </div>
       </div>
 
       <!-- Machine / equipment photos -->

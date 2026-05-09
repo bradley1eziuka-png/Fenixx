@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fenixx Technologies — Precision Waterjet Cutting | Fraser, MI</title>
+  <meta name="description" content="Fenixx Technologies — ITAR-registered precision waterjet cutting for aerospace and defense. 5 CNC systems, 90,000 PSI, 19,000 sq ft facility in Fraser, Michigan." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@300;400;500;600;700&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    /* ── DESIGN TOKENS ─────────────────────────────── */
+    :root {
+      --bg:           #07080C;
+      --surface:      #0D1018;
+      --elevated:     #141920;
+      --border:       rgba(255,255,255,0.07);
+      --border-s:     rgba(255,255,255,0.13);
+      --accent:       #C8831E;
+      --accent-l:     #E09A3A;
+      --accent-glow:  rgba(200,131,30,0.13);
+      --steel:        #1E6BAF;
+      --steel-glow:   rgba(30,107,175,0.10);
+      --text:         #EDF0F5;
+      --text-2:       #7E90A8;
+      --text-m:       #3B4A5C;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Barlow', sans-serif;
+      line-height: 1.7;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Grain overlay */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 9000;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23g)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.038;
+      mix-blend-mode: overlay;
+    }
+
+    /* ── SCROLLBAR ─────────────────────────────────── */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--elevated); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--border-s); }
+
+    /* ── NAV ───────────────────────────────────────── */
+    #nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.5rem 3rem;
+      transition: background 0.35s, padding 0.35s, border-color 0.35s;
+      border-bottom: 1px solid transparent;
+    }
+    #nav.scrolled {
+      background: rgba(7,8,12,0.94);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      padding: 0.875rem 3rem;
+      border-bottom-color: var(--border);
+    }
+
+    .logo-link { display: inline-flex; align-items: center; text-decoration: none; flex-shrink: 0; }
+    .logo-pill {
+      background: #fff;
+      padding: 5px 11px;
+      display: inline-flex; align-items: center;
+      transition: opacity 0.2s;
+    }
+    .logo-link:hover .logo-pill { opacity: 0.9; }
+    .logo-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    .logo-img { height: 34px; width: auto; display: block; }
+
+    .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 500;
+      font-size: 0.78rem; letter-spacing: 0.13em; text-transform: uppercase;
+      color: var(--text-2); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a:focus-visible { outline: 1px solid var(--accent); outline-offset: 4px; }
+
+    /* ── BUTTONS ───────────────────────────────────── */
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--accent); color: #fff;
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+      font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
+      text-decoration: none; padding: 0.75rem 1.5rem;
+      clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%);
+      border: none; cursor: pointer;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    }
+    .btn-primary:hover { background: var(--accent-l); transform: translateY(-1px); box-shadow: 0 8px 28px rgba(200,131,30,0.28); }
+    .btn-primary:active { transform: translateY(0); box-shadow: none; }
+    .btn-primary:focus-visible { outline: 2px solid var(--accent-l); outline-offset: 3px; }
+
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: transparent; color: var(--text);
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 600;
+      font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
+      text-decoration: none; padding: 0.75rem 1.5rem;
+      border: 1px solid var(--border-s); cursor: pointer;
+      transition: border-color 0.2s, color 0.2s, transform 0.15s;
+    }
+    .btn-ghost:hover { border-color: rgba(200,131,30,0.5); color: var(--accent-l); transform: translateY(-1px); }
+    .btn-ghost:active { transform: translateY(0); }
+    .btn-ghost:focus-visible { outline: 1px solid var(--accent); outline-offset: 3px; }
+
+    /* ── SECTION COMMON ────────────────────────────── */
+    .s-label {
+      display: inline-flex; align-items: center; gap: 0.625rem;
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 600;
+      font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 1rem;
+    }
+    .s-label::before { content: ''; display: block; width: 1.75rem; height: 1px; background: var(--accent); flex-shrink: 0; }
+    .s-title {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+      font-size: clamp(2rem, 4vw, 3rem); letter-spacing: -0.01em; line-height: 1.1;
+    }
+    .s-body { color: var(--text-2); line-height: 1.75; font-size: 1rem; }
+
+    /* ── HERO ──────────────────────────────────────── */
+    #hero {
+      position: relative; overflow: hidden;
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 0 3rem 0;
+    }
+    .hero-bg { position: absolute; inset: 0; background: var(--bg); }
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.022) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.022) 1px, transparent 1px);
+      background-size: 72px 72px;
+    }
+    .hero-glow-amber {
+      position: absolute; bottom: -10%; left: -5%; width: 65%; height: 80%;
+      background: radial-gradient(ellipse, rgba(200,131,30,0.13) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero-glow-steel {
+      position: absolute; top: -15%; right: -5%; width: 55%; height: 65%;
+      background: radial-gradient(ellipse, rgba(30,107,175,0.09) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero-fade-bottom {
+      position: absolute; bottom: 0; left: 0; right: 0; height: 40%;
+      background: linear-gradient(to bottom, transparent, var(--bg));
+      pointer-events: none;
+    }
+
+    /* Watermark ghost text */
+    .hero-wm {
+      position: absolute; right: -1%; bottom: 8%;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(8rem, 20vw, 20rem);
+      color: rgba(255,255,255,0.018);
+      letter-spacing: 0.04em; line-height: 1;
+      white-space: nowrap; user-select: none; pointer-events: none;
+    }
+
+    /* Scanline animation */
+    @keyframes scan { 0% { top: -2px; opacity: 0; } 4% { opacity: 1; } 96% { opacity: 1; } 100% { top: 100%; opacity: 0; } }
+    .hero-scanline {
+      position: absolute; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(200,131,30,0.3) 35%, rgba(200,131,30,0.5) 50%, rgba(200,131,30,0.3) 65%, transparent);
+      animation: scan 7s linear infinite;
+      pointer-events: none;
+    }
+
+    .hero-inner { position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; width: 100%; padding: 10rem 0 0; }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.625rem;
+      border: 1px solid rgba(200,131,30,0.52);
+      background: rgba(200,131,30,0.09);
+      padding: 0.4rem 1rem; margin-bottom: 2.25rem;
+    }
+    @keyframes pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.55; transform: scale(0.78); } }
+    .hero-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse 2.2s ease-in-out infinite; }
+    .hero-badge span {
+      font-family: 'Barlow Condensed', sans-serif; font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent-l);
+    }
+
+    .hero-h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(4rem, 10vw, 9rem);
+      letter-spacing: 0.025em; line-height: 0.9;
+      color: var(--text); margin-bottom: 2rem;
+    }
+    .hero-h1 em { font-style: normal; color: var(--accent); }
+
+    .hero-sub {
+      font-size: 1.05rem; font-weight: 400;
+      color: var(--text-2); line-height: 1.65;
+      max-width: 520px; margin-bottom: 2.75rem;
+    }
+    .hero-ctas { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+
+    /* Stat bar */
+    .hero-stats {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid var(--border);
+      margin-top: 5rem; position: relative; z-index: 2;
+      max-width: 1200px; margin-left: auto; margin-right: auto; width: 100%;
+    }
+    .hero-stat {
+      padding: 1.75rem 2rem;
+      border-right: 1px solid var(--border);
+      transition: background 0.2s;
+    }
+    .hero-stat:last-child { border-right: none; }
+    .hero-stat:hover { background: rgba(255,255,255,0.02); }
+    .hero-stat .val {
+      display: block; font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.75rem; line-height: 1; letter-spacing: 0.03em;
+      color: var(--text);
+    }
+    .hero-stat .lbl {
+      display: block; font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.68rem; font-weight: 600; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--text-2); margin-top: 0.3rem;
+    }
+
+    /* ── CAPABILITIES ──────────────────────────────── */
+    #capabilities { padding: 8rem 3rem; background: var(--bg); border-top: 1px solid rgba(200,131,30,0.18); }
+    .cap-wrap { max-width: 1200px; margin: 0 auto; }
+
+    .cap-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1px; background: rgba(255,255,255,0.11);
+      border: 1px solid rgba(255,255,255,0.11);
+      margin-top: 3.5rem;
+    }
+    .cap-card {
+      background: var(--bg); padding: 2.25rem 2rem;
+      position: relative; transition: background 0.25s;
+    }
+    .cap-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      opacity: 0; transition: opacity 0.25s;
+    }
+    .cap-card:hover { background: var(--surface); }
+    .cap-card:hover::before { opacity: 1; }
+    .cap-icon {
+      width: 40px; height: 40px;
+      border: 1px solid var(--border-s);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--accent); margin-bottom: 1.5rem;
+    }
+    .cap-val { display: block; font-family: 'Bebas Neue', sans-serif; font-size: 2.75rem; color: var(--accent); line-height: 1; margin-bottom: 0.375rem; }
+    .cap-card h3 {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+      font-size: 1.05rem; letter-spacing: 0.02em; color: var(--text); margin-bottom: 0.6rem;
+    }
+    .cap-card p { font-size: 0.875rem; color: var(--text-2); line-height: 1.65; }
+
+    /* Materials */
+    .mat-section { margin-top: 5rem; }
+    .mat-heading {
+      font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-2);
+      margin-bottom: 1.25rem;
+    }
+    .mat-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .mat-chip {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 600;
+      font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.45rem 1rem; border: 1px solid var(--border-s); color: var(--text-2);
+      cursor: default; transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+    .mat-chip:hover { border-color: var(--accent); color: var(--accent-l); background: var(--accent-glow); }
+    .mat-chip.hi { border-color: rgba(200,131,30,0.42); color: var(--accent-l); background: var(--accent-glow); }
+
+    /* Machine table */
+    .machine-table-wrap { margin-top: 4rem; }
+    .machine-table-title {
+      font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-2);
+      margin-bottom: 1.25rem;
+    }
+    .machine-table { background: var(--surface); border: 1px solid var(--border); width: 100%; border-collapse: collapse; overflow-x: auto; display: block; }
+    .machine-table th {
+      padding: 1rem 1.5rem; text-align: left;
+      font-family: 'Barlow Condensed', sans-serif; font-size: 0.68rem; font-weight: 600;
+      letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-2);
+      border-bottom: 1px solid var(--border); background: var(--elevated);
+    }
+    .machine-table td {
+      padding: 1rem 1.5rem;
+      font-family: 'Barlow Condensed', sans-serif; font-size: 0.95rem;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .machine-table tbody tr:last-child td { border-bottom: none; }
+    .machine-table tbody tr:hover td { background: rgba(255,255,255,0.018); }
+    .machine-table .model { color: var(--text); font-weight: 600; }
+    .machine-table .size { color: var(--accent-l); font-weight: 500; }
+    .machine-table .app { color: var(--text-2); font-size: 0.875rem; }
+
+    /* ── WHY FENIXX ────────────────────────────────── */
+    #why {
+      padding: 8rem 3rem; background: var(--surface); position: relative;
+    }
+    #why::before, #why::after {
+      content: ''; position: absolute; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border-s), transparent);
+    }
+    #why::before { top: 0; }
+    #why::after { bottom: 0; }
+    #why .inner { max-width: 1200px; margin: 0 auto; }
+
+    .why-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3rem; margin-top: 4.5rem; }
+    .why-stat {}
+    .why-num {
+      display: block; font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3.5rem, 5.5vw, 5.5rem);
+      color: var(--accent); line-height: 0.9; letter-spacing: 0.025em;
+      margin-bottom: 0.5rem;
+    }
+    .why-stat h3 {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+      font-size: 0.95rem; letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--text); margin-bottom: 0.625rem;
+    }
+    .why-stat p { font-size: 0.875rem; color: var(--text-2); line-height: 1.65; }
+
+    /* ── INDUSTRIES ────────────────────────────────── */
+    #industries { padding: 8rem 3rem; background: var(--bg); }
+    #industries .inner { max-width: 1200px; margin: 0 auto; }
+
+    .ind-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3.5rem; }
+    .ind-card {
+      position: relative; overflow: hidden;
+      border: 1px solid var(--border); background: var(--surface);
+      padding: 2.75rem 2.5rem;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .ind-card::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--steel));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.35s ease;
+    }
+    .ind-card:hover { border-color: rgba(200,131,30,0.28); transform: translateY(-4px); }
+    .ind-card:hover::after { transform: scaleX(1); }
+    .ind-num {
+      display: block; font-family: 'Bebas Neue', sans-serif;
+      font-size: 4.5rem; color: var(--border-s); line-height: 1;
+      margin-bottom: 1.25rem; letter-spacing: 0.05em;
+    }
+    .ind-card h3 {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+      font-size: 1.5rem; letter-spacing: 0.03em; color: var(--text); margin-bottom: 0.875rem;
+    }
+    .ind-card p { font-size: 0.9rem; color: var(--text-2); line-height: 1.7; }
+    .ind-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1.5rem; }
+    .ind-tag {
+      font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 0.25rem 0.625rem; border: 1px solid var(--border-s); color: var(--text-2);
+    }
+
+    /* ── PROCESS ───────────────────────────────────── */
+    #process { padding: 8rem 3rem; background: var(--surface); position: relative; }
+    #process::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border-s), transparent);
+    }
+    #process .inner { max-width: 1200px; margin: 0 auto; }
+
+    .proc-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 0; margin-top: 4.5rem; position: relative;
+    }
+    .proc-grid::before {
+      content: ''; position: absolute; top: 23px; left: 0; right: 0; height: 1px;
+      background: var(--border-s); z-index: 0;
+    }
+    .proc-step { padding: 0 2.5rem 2rem 0; position: relative; z-index: 1; }
+    .step-circle {
+      width: 48px; height: 48px;
+      border: 1px solid rgba(200,131,30,0.38); background: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 2rem;
+    }
+    .step-circle span { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; color: var(--accent); line-height: 1; }
+    .proc-step h3 {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+      font-size: 1.1rem; letter-spacing: 0.03em; color: var(--text); margin-bottom: 0.625rem;
+    }
+    .proc-step p { font-size: 0.875rem; color: var(--text-2); line-height: 1.65; }
+    .proc-arrow {
+      position: absolute; right: 0.75rem; top: 0.75rem;
+      font-family: 'Barlow Condensed', sans-serif; font-size: 1.5rem;
+      color: var(--border-s); line-height: 1;
+    }
+    .proc-step:last-child .proc-arrow { display: none; }
+
+    /* ── CONTACT ───────────────────────────────────── */
+    #contact { padding: 8rem 3rem; background: var(--bg); }
+    #contact .inner { max-width: 1200px; margin: 0 auto; }
+
+    .contact-layout { display: grid; grid-template-columns: 1fr 1.65fr; gap: 5rem; margin-top: 4rem; }
+
+    .c-info h3 {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+      font-size: 1.15rem; letter-spacing: 0.05em; color: var(--text); margin-bottom: 2rem;
+    }
+    .c-detail { margin-bottom: 1.5rem; }
+    .c-detail .lbl {
+      display: block; font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.65rem; font-weight: 600; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--text-m); margin-bottom: 0.25rem;
+    }
+    .c-detail .val { font-size: 0.95rem; color: var(--text-2); }
+    .c-detail a { color: var(--text-2); text-decoration: none; transition: color 0.2s; }
+    .c-detail a:hover { color: var(--accent-l); }
+    .c-detail a:focus-visible { outline: 1px solid var(--accent); outline-offset: 2px; }
+
+    .itar-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      border: 1px solid rgba(200,131,30,0.32); background: rgba(200,131,30,0.06);
+      padding: 0.35rem 0.875rem; margin-top: 2rem;
+    }
+    .itar-badge span {
+      font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent-l);
+    }
+    .itar-badge svg { color: var(--accent); flex-shrink: 0; }
+
+    /* Form */
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    .form-field { margin-bottom: 1rem; }
+    .form-label {
+      display: block; font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.65rem; font-weight: 600; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--text-2); margin-bottom: 0.4rem;
+    }
+    .form-input, .form-select, .form-textarea {
+      width: 100%; background: var(--elevated);
+      border: 1px solid rgba(255,255,255,0.1); color: var(--text);
+      padding: 0.875rem 1rem; font-family: 'Barlow', sans-serif; font-size: 0.95rem;
+      outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+      appearance: none; -webkit-appearance: none;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--accent); box-shadow: 0 0 0 3px rgba(200,131,30,0.1);
+    }
+    .form-input::placeholder, .form-textarea::placeholder { color: var(--text-m); }
+    .form-select { cursor: pointer; }
+    .form-select option { background: var(--elevated); }
+    .form-textarea { resize: vertical; min-height: 130px; }
+    .form-note {
+      font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem;
+      letter-spacing: 0.05em; color: var(--text-m); margin-top: 0.875rem;
+    }
+
+    /* ── FOOTER ────────────────────────────────────── */
+    footer {
+      background: #050609; border-top: 1px solid var(--border);
+      padding: 3.5rem 3rem 2rem;
+    }
+    footer .inner { max-width: 1200px; margin: 0 auto; }
+    .footer-top {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      gap: 2rem; flex-wrap: wrap;
+      padding-bottom: 2.5rem; border-bottom: 1px solid var(--border); margin-bottom: 2rem;
+    }
+    .footer-nav { display: flex; gap: 2rem; flex-wrap: wrap; align-items: center; }
+    .footer-nav a {
+      font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-m);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .footer-nav a:hover { color: var(--text-2); }
+    .footer-nav a:focus-visible { outline: 1px solid var(--accent); outline-offset: 3px; }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+    .footer-copy {
+      font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem;
+      letter-spacing: 0.1em; color: var(--text-m);
+    }
+
+    /* ── PHOTO STRIPS ──────────────────────────────── */
+    .photo-strip {
+      display: grid; gap: 1px;
+      background: rgba(255,255,255,0.09);
+      margin-top: 3.5rem; overflow: hidden;
+    }
+    .photo-strip.cols-2 { grid-template-columns: repeat(2, 1fr); }
+    .photo-strip.cols-3 { grid-template-columns: repeat(3, 1fr); }
+    .photo-item { position: relative; overflow: hidden; }
+    .photo-item img {
+      width: 100%; height: 300px;
+      object-fit: cover; display: block;
+      filter: brightness(0.68) saturate(0.8);
+      transition: transform 0.6s ease, filter 0.6s ease;
+    }
+    .photo-item:hover img { transform: scale(1.04); filter: brightness(0.8) saturate(0.9); }
+    .photo-item::after {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background: linear-gradient(180deg, rgba(7,8,12,0.22) 0%, rgba(7,8,12,0.68) 100%);
+    }
+
+    /* ── SCROLL ANIMATIONS ─────────────────────────── */
+    .fade-up { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .fade-up.in { opacity: 1; transform: translateY(0); }
+    .fade-up.d1 { transition-delay: 0.1s; }
+    .fade-up.d2 { transition-delay: 0.2s; }
+    .fade-up.d3 { transition-delay: 0.3s; }
+    .fade-up.d4 { transition-delay: 0.4s; }
+
+    /* ── RESPONSIVE ────────────────────────────────── */
+    @media (max-width: 1100px) {
+      .cap-grid { grid-template-columns: repeat(2, 1fr); }
+      .why-grid { grid-template-columns: repeat(2, 1fr); }
+      .ind-grid { grid-template-columns: repeat(2, 1fr); }
+      .proc-grid { grid-template-columns: repeat(2, 1fr); }
+      .proc-grid::before { display: none; }
+      .proc-step { padding-bottom: 2rem; }
+    }
+    @media (max-width: 768px) {
+      .photo-strip.cols-2,
+      .photo-strip.cols-3 { grid-template-columns: 1fr; }
+      .photo-item img { height: 220px; }
+      #nav { padding: 1.25rem 1.5rem; }
+      #nav.scrolled { padding: 0.875rem 1.5rem; }
+      .nav-links { display: none; }
+      #hero { padding: 0 1.5rem 0; }
+      .hero-inner { padding-top: 8rem; }
+      .hero-stats { grid-template-columns: repeat(2, 1fr); }
+      .hero-stat { padding: 1.25rem 1.5rem; }
+      #capabilities, #why, #industries, #process, #contact { padding: 5rem 1.5rem; }
+      .cap-grid { grid-template-columns: 1fr; }
+      .why-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+      .ind-grid { grid-template-columns: 1fr; }
+      .proc-grid { grid-template-columns: 1fr; }
+      .contact-layout { grid-template-columns: 1fr; gap: 3rem; }
+      .form-row { grid-template-columns: 1fr; }
+      footer { padding: 3rem 1.5rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ NAV ═══════════════════════════════════════════ -->
+  <nav id="nav" role="navigation" aria-label="Main navigation">
+    <a href="#" class="logo-link" aria-label="Fenixx Technologies home">
+      <div class="logo-pill">
+        <img src="Brand assets/fenixxlogocard.jpg" alt="Fenixx Technologies, LLC" class="logo-img" />
+      </div>
+    </a>
+    <ul class="nav-links" role="list">
+      <li><a href="#capabilities">Capabilities</a></li>
+      <li><a href="#why">Why Fenixx</a></li>
+      <li><a href="#industries">Industries</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#contact" class="btn-primary">Request a Quote</a>
+  </nav>
+
+  <!-- ═══ HERO ═══════════════════════════════════════════ -->
+  <section id="hero" aria-label="Hero">
+    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="hero-glow-amber" aria-hidden="true"></div>
+    <div class="hero-glow-steel" aria-hidden="true"></div>
+    <div class="hero-fade-bottom" aria-hidden="true"></div>
+    <div class="hero-wm" aria-hidden="true">WATERJET</div>
+    <div class="hero-inner">
+      <div class="hero-badge" aria-label="ITAR Registered — Fraser, Michigan">
+        <div class="dot" aria-hidden="true"></div>
+        <span>ITAR Registered &nbsp;·&nbsp; Fraser, Michigan</span>
+      </div>
+
+      <h1 class="hero-h1">
+        Precision<br>
+        Waterjet<br>
+        <em>Cutting</em>
+      </h1>
+
+      <p class="hero-sub">
+        Five 90,000 PSI CNC waterjet systems. 19,000 sq ft of modern manufacturing capacity. Cutting Inconel, Titanium, Invar, and the most demanding aerospace alloys to ±0.001" tolerance.
+      </p>
+
+      <div class="hero-ctas">
+        <a href="#contact" class="btn-primary">
+          Request a Quote
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#capabilities" class="btn-ghost">View Capabilities</a>
+      </div>
+    </div>
+
+    <div class="hero-stats" aria-label="Facility at a glance">
+      <div class="hero-stat">
+        <span class="val">5</span>
+        <span class="lbl">CNC Waterjet Machines</span>
+      </div>
+      <div class="hero-stat">
+        <span class="val">19,000</span>
+        <span class="lbl">Square Foot Facility</span>
+      </div>
+      <div class="hero-stat">
+        <span class="val">90K PSI</span>
+        <span class="lbl">Ultra-High Pressure</span>
+      </div>
+      <div class="hero-stat">
+        <span class="val">±.001"</span>
+        <span class="lbl">Tolerance Capability</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CAPABILITIES ════════════════════════════════════ -->
+  <section id="capabilities" aria-labelledby="cap-title">
+    <div class="cap-wrap">
+      <div class="fade-up">
+        <div class="s-label">Capabilities</div>
+        <h2 class="s-title" id="cap-title">Industrial-Grade<br>Waterjet Precision</h2>
+      </div>
+      <p class="s-body fade-up d1" style="max-width:540px;margin-top:1rem">
+        Fenixx runs a fleet of high-performance CNC waterjet systems built for aerospace and defense work — capable of handling exotic alloys and precision geometries that most shops won't attempt.
+      </p>
+
+      <div class="cap-grid" role="list">
+        <div class="cap-card fade-up d1" role="listitem">
+          <div class="cap-icon" aria-hidden="true">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v3M12 20v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M1 12h3M20 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg>
+          </div>
+          <span class="cap-val">90K</span>
+          <h3>PSI Cutting Pressure</h3>
+          <p>STREAMLINE PRO ultra-high pressure abrasive pump. Enough to cut cleanly through Inconel, Titanium, and hardened tool steel.</p>
+        </div>
+        <div class="cap-card fade-up d2" role="listitem">
+          <div class="cap-icon" aria-hidden="true">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2v-4M9 21H5a2 2 0 0 1-2-2v-4m0 0h18"/></svg>
+          </div>
+          <span class="cap-val">±.001"</span>
+          <h3>Dimensional Tolerance</h3>
+          <p>Intelligent Taper Control Cutting Heads with CAD-CAM generated CNC code ensure repeatable dimensional accuracy across every run.</p>
+        </div>
+        <div class="cap-card fade-up d3" role="listitem">
+          <div class="cap-icon" aria-hidden="true">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2M12 12v5M9.5 14.5l2.5 2.5 2.5-2.5"/></svg>
+          </div>
+          <span class="cap-val" style="font-size:2.1rem">4 CRANES</span>
+          <h3>Up to 20-Ton Lift</h3>
+          <p>Four overhead cranes with 20-ton capacity handle large assemblies and heavy stock — essential for aerospace and defense workpieces.</p>
+        </div>
+        <div class="cap-card fade-up d4" role="listitem">
+          <div class="cap-icon" aria-hidden="true">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <span class="cap-val" style="font-size:2.1rem">CAD·CAM</span>
+          <h3>Integrated Programming</h3>
+          <p>Full CAD-CAM integration for precise part programming, rapid setup, and production consistency — DXF, DWG, and PDF accepted.</p>
+        </div>
+      </div>
+
+      <!-- Materials grid -->
+      <div class="mat-section fade-up">
+        <div class="mat-heading">Materials We Cut</div>
+        <div class="mat-grid" role="list" aria-label="Cuttable materials">
+          <span class="mat-chip hi" role="listitem">Inconel</span>
+          <span class="mat-chip hi" role="listitem">Titanium</span>
+          <span class="mat-chip hi" role="listitem">Invar</span>
+          <span class="mat-chip" role="listitem">Tool Steel</span>
+          <span class="mat-chip" role="listitem">Stainless Steel</span>
+          <span class="mat-chip" role="listitem">Aluminum</span>
+          <span class="mat-chip" role="listitem">Brass</span>
+          <span class="mat-chip" role="listitem">Copper</span>
+          <span class="mat-chip" role="listitem">Kirksite</span>
+          <span class="mat-chip" role="listitem">Rubber</span>
+          <span class="mat-chip" role="listitem">Plastics</span>
+          <span class="mat-chip" role="listitem">Foam</span>
+          <span class="mat-chip" role="listitem">Vinyl</span>
+          <span class="mat-chip" role="listitem">Composites</span>
+        </div>
+      </div>
+
+      <!-- Machine fleet table -->
+      <div class="machine-table-wrap fade-up">
+        <div class="machine-table-title">Waterjet Machine Fleet</div>
+        <table class="machine-table" aria-label="Machine fleet specifications">
+          <thead>
+            <tr>
+              <th scope="col">Model</th>
+              <th scope="col">Table Size</th>
+              <th scope="col">Application</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="model">MW-X4-1220</td><td class="size">12′ × 20′</td><td class="app">Large-format precision cutting</td></tr>
+            <tr><td class="model">Suprema DX 1020</td><td class="size">10′ × 20′</td><td class="app">Mid-range production runs</td></tr>
+            <tr><td class="model">Suprema DX 826</td><td class="size">8′ × 26′</td><td class="app">Wide-format specialty cutting</td></tr>
+            <tr><td class="model">Suprema DX 612 (×2)</td><td class="size">6′ × 12′</td><td class="app">High-volume small-part precision</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Machine / equipment photos -->
+      <div class="photo-strip cols-2 fade-up" aria-label="Waterjet cutting in progress">
+        <div class="photo-item">
+          <img src="Brand assets/image-1778208762362.png" alt="Fenixx waterjet machine cutting the company logo into steel plate" />
+        </div>
+        <div class="photo-item">
+          <img src="Brand assets/image-1778208788575.png" alt="Close-up of high-pressure waterjet cutting head in operation" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ WHY FENIXX ══════════════════════════════════════ -->
+  <section id="why" aria-labelledby="why-title">
+    <div class="inner">
+      <div class="fade-up">
+        <div class="s-label">Why Fenixx</div>
+        <h2 class="s-title" id="why-title">Built for the<br>Demands of Aerospace</h2>
+      </div>
+      <p class="s-body fade-up d1" style="max-width:520px;margin-top:1rem">
+        Procurement engineers need a shop that's credentialed, capable, and consistent. Fenixx delivers — with the regulatory compliance and facility capacity that aerospace and defense programs require.
+      </p>
+
+      <div class="why-grid">
+        <div class="why-stat fade-up">
+          <span class="why-num">5</span>
+          <h3>CNC Waterjet Machines</h3>
+          <p>Five dedicated systems ensure capacity and schedule flexibility — no single-machine bottlenecks on your program.</p>
+        </div>
+        <div class="why-stat fade-up d1">
+          <span class="why-num">19K</span>
+          <h3>Square Foot Facility</h3>
+          <p>A modern 19,000 sq ft manufacturing facility in Fraser, Michigan, with room for large assemblies and concurrent runs.</p>
+        </div>
+        <div class="why-stat fade-up d2">
+          <span class="why-num">ITAR</span>
+          <h3>Registered & Compliant</h3>
+          <p>ITAR registration qualifies Fenixx to handle defense articles and export-controlled technical data per DDTC requirements.</p>
+        </div>
+        <div class="why-stat fade-up d3">
+          <span class="why-num">20T</span>
+          <h3>Overhead Crane Capacity</h3>
+          <p>Four cranes rated up to 20 tons — ready for the large-format, heavy-stock handling that defense work demands.</p>
+        </div>
+      </div>
+
+      <!-- Facility / shop floor photos -->
+      <div class="photo-strip cols-2 fade-up" aria-label="Fenixx Technologies facility">
+        <div class="photo-item">
+          <img src="Brand assets/image-1778208820174.png" alt="Suprema waterjet machine on the Fenixx shop floor" />
+        </div>
+        <div class="photo-item">
+          <img src="Brand assets/image-1778208828199.png" alt="Flow waterjet machine inside the 19,000 sq ft Fenixx facility" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ INDUSTRIES ══════════════════════════════════════ -->
+  <section id="industries" aria-labelledby="ind-title">
+    <div class="inner">
+      <div class="fade-up">
+        <div class="s-label">Industries Served</div>
+        <h2 class="s-title" id="ind-title">Engineered for<br>High-Stakes Applications</h2>
+      </div>
+
+      <div class="ind-grid">
+        <div class="ind-card fade-up" role="article">
+          <span class="ind-num" aria-hidden="true">01</span>
+          <h3>Aerospace</h3>
+          <p>From structural airframe components to engine hardware, we cut exotic alloys to aerospace tolerances — Inconel, Titanium, Invar, and high-performance superalloys that demand abrasive waterjet precision.</p>
+          <div class="ind-tags" aria-label="Aerospace applications">
+            <span class="ind-tag">Structural Parts</span>
+            <span class="ind-tag">Engine Components</span>
+            <span class="ind-tag">Heat Shields</span>
+            <span class="ind-tag">Brackets</span>
+          </div>
+        </div>
+        <div class="ind-card fade-up d1" role="article">
+          <span class="ind-num" aria-hidden="true">02</span>
+          <h3>Defense</h3>
+          <p>ITAR registered and experienced with the compliance requirements of defense contracts. We handle sensitive defense articles with appropriate documentation, traceability, and operational discretion.</p>
+          <div class="ind-tags" aria-label="Defense applications">
+            <span class="ind-tag">ITAR Compliant</span>
+            <span class="ind-tag">Armor Systems</span>
+            <span class="ind-tag">Ordnance Parts</span>
+            <span class="ind-tag">Ground Vehicles</span>
+          </div>
+        </div>
+        <div class="ind-card fade-up d2" role="article">
+          <span class="ind-num" aria-hidden="true">03</span>
+          <h3>Industrial</h3>
+          <p>Complex industrial fabrications, precision gaskets, custom tooling, and cut parts for heavy equipment and automation. Any material, any volume — prototype to production.</p>
+          <div class="ind-tags" aria-label="Industrial applications">
+            <span class="ind-tag">Custom Tooling</span>
+            <span class="ind-tag">Gaskets & Seals</span>
+            <span class="ind-tag">Heavy Equipment</span>
+            <span class="ind-tag">Automation</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Finished parts photos -->
+      <div class="photo-strip cols-3 fade-up" aria-label="Precision waterjet-cut finished parts">
+        <div class="photo-item">
+          <img src="Brand assets/image-1778208737513.png" alt="Precision waterjet-cut phoenix logo in metal plate" />
+        </div>
+        <div class="photo-item">
+          <img src="Brand assets/image-1778208808463.png" alt="Curved precision-cut metal components" />
+        </div>
+        <div class="photo-item">
+          <img src="Brand assets/image-1778208773545.png" alt="Waterjet-cut metal parts staged for delivery" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ PROCESS ════════════════════════════════════════ -->
+  <section id="process" aria-labelledby="proc-title">
+    <div class="inner">
+      <div class="fade-up">
+        <div class="s-label">Our Process</div>
+        <h2 class="s-title" id="proc-title">From Quote<br>to Delivery</h2>
+      </div>
+      <p class="s-body fade-up d1" style="max-width:480px;margin-top:1rem">
+        A four-step process designed to minimize lead time and eliminate ambiguity for procurement engineers managing tight program schedules.
+      </p>
+
+      <div class="proc-grid" role="list" aria-label="Process steps">
+        <div class="proc-step fade-up" role="listitem">
+          <div class="step-circle"><span>01</span></div>
+          <span class="proc-arrow" aria-hidden="true">→</span>
+          <h3>Submit Request</h3>
+          <p>Provide your part drawing, material spec, quantity, and delivery window. DXF, DWG, PDF, or STEP files accepted via email.</p>
+        </div>
+        <div class="proc-step fade-up d1" role="listitem">
+          <div class="step-circle"><span>02</span></div>
+          <span class="proc-arrow" aria-hidden="true">→</span>
+          <h3>Engineering Review</h3>
+          <p>Our team evaluates cut feasibility, confirms tolerances, and returns a detailed quotation with firm lead time within one business day.</p>
+        </div>
+        <div class="proc-step fade-up d2" role="listitem">
+          <div class="step-circle"><span>03</span></div>
+          <span class="proc-arrow" aria-hidden="true">→</span>
+          <h3>Precision Cut</h3>
+          <p>Parts are CAD-CAM programmed and cut on our high-pressure waterjet fleet.</p>
+        </div>
+        <div class="proc-step fade-up d3" role="listitem">
+          <div class="step-circle"><span>04</span></div>
+          <h3>Package & Ship</h3>
+          <p>Parts are packaged and shipped to your facility or next-stage machining operation.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CONTACT ════════════════════════════════════════ -->
+  <section id="contact" aria-labelledby="contact-title">
+    <div class="inner">
+      <div class="fade-up">
+        <div class="s-label">Contact</div>
+        <h2 class="s-title" id="contact-title">Request a Quote</h2>
+      </div>
+      <p class="s-body fade-up d1" style="max-width:480px;margin-top:1rem">
+        Ready to discuss your project? Reach out directly or complete the form below — our team responds within one business day.
+      </p>
+
+      <div class="contact-layout fade-up">
+        <!-- Info -->
+        <div class="c-info">
+          <h3>Fenixx Technologies, LLC</h3>
+          <div class="c-detail">
+            <span class="lbl">Contact</span>
+            <span class="val">Bill Hayter</span>
+          </div>
+          <div class="c-detail">
+            <span class="lbl">Phone</span>
+            <a href="tel:5862546000" class="val">586-254-6000</a>
+          </div>
+          <div class="c-detail">
+            <span class="lbl">Fax</span>
+            <span class="val">586-254-6077</span>
+          </div>
+          <div class="c-detail">
+            <span class="lbl">Email</span>
+            <a href="mailto:whayter@fenixxtech.com" class="val">whayter@fenixxtech.com</a>
+          </div>
+          <div class="c-detail">
+            <span class="lbl">Address</span>
+            <span class="val">17009 Masonic<br>Fraser, MI 48026</span>
+          </div>
+          <div class="itar-badge" role="img" aria-label="ITAR Registered Facility">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span>ITAR Registered Facility</span>
+          </div>
+        </div>
+
+        <!-- Form -->
+        <form aria-label="Request a Quote" action="https://formspree.io/f/mwvyroeg" method="POST">
+          <div class="form-row">
+            <div class="form-field">
+              <label class="form-label" for="f-fname">First Name</label>
+              <input class="form-input" type="text" id="f-fname" name="fname" placeholder="John" autocomplete="given-name" />
+            </div>
+            <div class="form-field">
+              <label class="form-label" for="f-lname">Last Name</label>
+              <input class="form-input" type="text" id="f-lname" name="lname" placeholder="Smith" autocomplete="family-name" />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-field">
+              <label class="form-label" for="f-company">Company</label>
+              <input class="form-input" type="text" id="f-company" name="company" placeholder="Acme Aerospace" autocomplete="organization" />
+            </div>
+            <div class="form-field">
+              <label class="form-label" for="f-email">Email</label>
+              <input class="form-input" type="email" id="f-email" name="email" placeholder="john@company.com" autocomplete="email" />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-field">
+              <label class="form-label" for="f-phone">Phone</label>
+              <input class="form-input" type="tel" id="f-phone" name="phone" placeholder="555-000-0000" autocomplete="tel" />
+            </div>
+            <div class="form-field">
+              <label class="form-label" for="f-material">Primary Material</label>
+              <select class="form-select" id="f-material" name="material">
+                <option value="" disabled selected>Select material</option>
+                <option>Inconel</option>
+                <option>Titanium</option>
+                <option>Invar</option>
+                <option>Tool Steel</option>
+                <option>Stainless Steel</option>
+                <option>Aluminum</option>
+                <option>Brass / Copper</option>
+                <option>Rubber / Foam</option>
+                <option>Plastics / Composites</option>
+                <option>Other / Multiple</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="f-qty">Estimated Quantity / Part Complexity</label>
+            <input class="form-input" type="text" id="f-qty" name="qty" placeholder="e.g., 50 pcs, prototype, repeat production run" />
+          </div>
+          <div class="form-field" style="margin-bottom:1.5rem">
+            <label class="form-label" for="f-msg">Project Details</label>
+            <textarea class="form-textarea" id="f-msg" name="message" placeholder="Describe your part geometry, tolerances, delivery requirements, or reference your drawing..."></textarea>
+          </div>
+          <button type="submit" class="btn-primary" style="width:100%;justify-content:center;font-size:0.85rem;padding:1rem 1.5rem">
+            Submit Quote Request
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+          <p class="form-note">
+            Response within 1 business day. CAD files (DXF, DWG, STEP, PDF) can be sent to whayter@fenixxtech.com.
+          </p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FOOTER ════════════════════════════════════════ -->
+  <footer role="contentinfo">
+    <div class="inner">
+      <div class="footer-top">
+        <a href="#" class="logo-link" aria-label="Fenixx Technologies home">
+          <div class="logo-pill">
+            <img src="Brand assets/fenixxlogocard.jpg" alt="Fenixx Technologies, LLC" class="logo-img" />
+          </div>
+        </a>
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <a href="#capabilities">Capabilities</a>
+          <a href="#why">Why Fenixx</a>
+          <a href="#industries">Industries</a>
+          <a href="#process">Process</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <span class="footer-copy">© 2026 Fenixx Technologies, LLC — 17009 Masonic, Fraser, MI 48026 — All rights reserved.</span>
+        <div class="itar-badge" role="img" aria-label="ITAR Registered">
+          <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>ITAR Registered</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Nav scroll effect
+    const nav = document.getElementById('nav');
+    const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 60);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    // Scroll-triggered fade-up animations
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
+  </script>
+</body>
+</html>

@@ -99,7 +99,8 @@
     }
     .logo-link:hover .logo-pill { opacity: 0.9; }
     .logo-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-    .logo-img { height: 96px; width: auto; display: block; }
+    .logo-img { height: 64px; width: auto; display: block; }
+    @media (min-width: 768px) { .logo-img { height: 96px; } }
 
     .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
     .nav-links a {

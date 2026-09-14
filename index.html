@@ -160,7 +160,7 @@
     #hero {
       position: relative; overflow: hidden;
       min-height: 100vh;
-      display: flex; flex-direction: column; justify-content: flex-end;
+      display: flex; flex-direction: column;
       padding: 0 3rem 0;
     }
     .hero-bg { position: absolute; inset: 0; background: var(--bg); }
@@ -172,12 +172,12 @@
       background-size: 72px 72px;
     }
     .hero-glow-amber {
-      position: absolute; bottom: -10%; left: -5%; width: 65%; height: 80%;
+      position: absolute; z-index: 2; bottom: -10%; left: -5%; width: 65%; height: 80%;
       background: radial-gradient(ellipse, rgba(200,131,30,0.13) 0%, transparent 65%);
       pointer-events: none;
     }
     .hero-glow-steel {
-      position: absolute; top: -15%; right: -5%; width: 55%; height: 65%;
+      position: absolute; z-index: 2; top: -15%; right: -5%; width: 55%; height: 65%;
       background: radial-gradient(ellipse, rgba(30,107,175,0.09) 0%, transparent 65%);
       pointer-events: none;
     }
@@ -206,25 +206,35 @@
       pointer-events: none;
     }
 
-    .hero-inner {
-      position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; width: 100%;
-      padding: 10rem 0 0; text-align: left;
-      display: flex; align-items: stretch; justify-content: space-between; gap: 2.5rem;
+    /* Top content zone: fills the space above the stats row so the
+       media layer can span almost the full hero height. */
+    .hero-top {
+      position: relative;
+      flex: 1 1 auto;
+      display: flex; align-items: flex-start;
+      padding-top: 10rem;
     }
 
-    .hero-content { flex: 0 0 55%; max-width: 55%; display: flex; flex-direction: column; justify-content: center; }
+    .hero-inner {
+      position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; width: 100%;
+      text-align: left;
+    }
+
+    .hero-content { max-width: 600px; }
 
     .hero-badge {
       display: inline-flex; align-items: center; gap: 0.625rem;
+      width: fit-content;
       border: 1px solid rgba(200,131,30,0.52);
       background: rgba(200,131,30,0.09);
       padding: 0.5rem 1.25rem; margin-bottom: 2.25rem;
     }
     @keyframes pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.55; transform: scale(0.78); } }
-    .hero-badge .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); animation: pulse 2.2s ease-in-out infinite; }
+    .hero-badge .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); animation: pulse 2.2s ease-in-out infinite; flex-shrink: 0; }
     .hero-badge span {
       font-family: 'Barlow Condensed', sans-serif; font-size: 0.82rem; font-weight: 700;
       letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent-l);
+      white-space: nowrap;
     }
 
     .hero-h1 {
@@ -242,28 +252,40 @@
     }
     .hero-ctas { display: flex; align-items: center; justify-content: flex-start; gap: 1rem; flex-wrap: wrap; }
 
-    /* Hero media (waterjet image) */
+    /* Hero media (waterjet image) — a full-bleed background layer behind
+       the text, not a boxed sibling column, so it reads as part of the
+       hero atmosphere rather than a pasted-in image card. */
     .hero-media {
-      position: relative; overflow: hidden;
-      flex: 0 0 42%; max-width: 42%; min-height: 460px;
+      position: absolute; top: 0; bottom: 0;
+      left: 34%; right: -3rem;
+      overflow: hidden; z-index: 1;
+      pointer-events: none;
     }
     .hero-media-img {
       position: absolute; inset: 0; width: 100%; height: 100%;
-      object-fit: cover; object-position: 78% 32%; display: block;
+      object-fit: cover; object-position: 64% 32%; display: block;
       filter: saturate(0.96);
     }
     .hero-media-fade {
       position: absolute; inset: 0;
       background: linear-gradient(90deg,
         var(--bg) 0%,
-        rgba(7,8,12,0.88) 12%,
-        rgba(7,8,12,0.58) 28%,
-        rgba(7,8,12,0.2) 50%,
-        transparent 72%);
+        var(--bg) 9%,
+        rgba(7,8,12,0.92) 20%,
+        rgba(7,8,12,0.76) 33%,
+        rgba(7,8,12,0.54) 47%,
+        rgba(7,8,12,0.32) 61%,
+        rgba(7,8,12,0.13) 75%,
+        rgba(7,8,12,0.02) 88%,
+        transparent 97%);
     }
     .hero-media-tint {
       position: absolute; inset: 0;
-      background: linear-gradient(180deg, rgba(7,8,12,0.04) 0%, rgba(7,8,12,0.4) 100%);
+      background: linear-gradient(180deg,
+        rgba(7,8,12,0.05) 0%,
+        rgba(7,8,12,0.12) 60%,
+        rgba(7,8,12,0.5) 88%,
+        rgba(7,8,12,0.82) 100%);
       mix-blend-mode: multiply;
     }
 
@@ -637,15 +659,15 @@
       .proc-grid { grid-template-columns: repeat(2, 1fr); }
       .proc-grid::before { display: none; }
       .proc-step { padding-bottom: 2rem; }
-      .hero-inner { gap: 1.5rem; }
-      .hero-content { flex-basis: 62%; max-width: 62%; }
-      .hero-media { flex-basis: 34%; max-width: 34%; min-height: 380px; opacity: 0.85; }
+      .hero-media { left: 50%; opacity: 0.78; }
       .hero-media-fade {
         background: linear-gradient(90deg,
           var(--bg) 0%,
-          rgba(7,8,12,0.9) 18%,
-          rgba(7,8,12,0.55) 40%,
-          transparent 78%);
+          var(--bg) 8%,
+          rgba(7,8,12,0.92) 22%,
+          rgba(7,8,12,0.68) 40%,
+          rgba(7,8,12,0.32) 62%,
+          transparent 88%);
       }
     }
     @media (max-width: 768px) {
@@ -656,21 +678,21 @@
       #nav.scrolled { padding: 0.875rem 1.5rem; }
       .nav-links { display: none; }
       #hero { padding: 0 1.5rem 0; }
-      .hero-inner { padding-top: 8rem; flex-direction: column; gap: 0; }
-      .hero-content { flex: none; max-width: 100%; position: relative; z-index: 1; }
+      .hero-top { padding-top: 9.5rem; }
+      .hero-content { max-width: 100%; }
       .hero-media {
-        position: absolute; inset: 0;
-        flex: none; max-width: none; min-height: 0; opacity: 1;
-        z-index: 0;
+        top: 0; bottom: 0; left: 0; right: -1.5rem;
+        opacity: 1;
       }
-      .hero-media-img { object-position: 80% 28%; }
+      .hero-media-img { object-position: 78% 26%; }
       .hero-media-fade {
         background: linear-gradient(180deg,
-          rgba(7,8,12,0.4) 0%,
-          rgba(7,8,12,0.86) 58%,
-          var(--bg) 94%);
+          rgba(7,8,12,0.35) 0%,
+          rgba(7,8,12,0.55) 30%,
+          rgba(7,8,12,0.88) 68%,
+          var(--bg) 96%);
       }
-      .hero-media-tint { background: rgba(7,8,12,0.55); }
+      .hero-media-tint { background: rgba(7,8,12,0.58); }
       .hero-stats { grid-template-columns: repeat(2, 1fr); }
       .hero-stat { padding: 1.25rem 1.5rem; }
       #capabilities, #why, #industries, #process, #contact { padding: 5rem 1.5rem; }
@@ -709,36 +731,39 @@
     <div class="hero-glow-amber" aria-hidden="true"></div>
     <div class="hero-glow-steel" aria-hidden="true"></div>
     <div class="hero-fade-bottom" aria-hidden="true"></div>
-    <div class="hero-inner">
-      <div class="hero-content">
-        <div class="hero-badge" aria-label="ITAR Registered, Fraser, Michigan">
-          <div class="dot" aria-hidden="true"></div>
-          <span>ITAR Registered &nbsp;·&nbsp; Fraser, Michigan</span>
-        </div>
 
-        <h1 class="hero-h1">
-          Precision<br>
-          Waterjet<br>
-          <em>Cutting</em>
-        </h1>
-
-        <p class="hero-sub">
-          Five 90,000 PSI systems. ITAR registered. 19,000 sq ft of capacity. We cut Inconel, Titanium, and Invar to aerospace tolerances, with quotes returned within one business day.
-        </p>
-
-        <div class="hero-ctas">
-          <a href="#contact" class="btn-primary">
-            Get a Quote
-            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
-          <a href="#capabilities" class="btn-ghost">See Capabilities</a>
-        </div>
-      </div>
-
+    <div class="hero-top">
       <div class="hero-media">
         <img src="Cutter.png" alt="Fenixx Technologies CNC waterjet cutting head slicing through steel plate" class="hero-media-img" />
         <div class="hero-media-fade" aria-hidden="true"></div>
         <div class="hero-media-tint" aria-hidden="true"></div>
+      </div>
+
+      <div class="hero-inner">
+        <div class="hero-content">
+          <div class="hero-badge" aria-label="ITAR Registered, Fraser, Michigan">
+            <div class="dot" aria-hidden="true"></div>
+            <span>ITAR Registered &nbsp;·&nbsp; Fraser, Michigan</span>
+          </div>
+
+          <h1 class="hero-h1">
+            Precision<br>
+            Waterjet<br>
+            <em>Cutting</em>
+          </h1>
+
+          <p class="hero-sub">
+            Five 90,000 PSI systems. ITAR registered. 19,000 sq ft of capacity. We cut Inconel, Titanium, and Invar to aerospace tolerances, with quotes returned within one business day.
+          </p>
+
+          <div class="hero-ctas">
+            <a href="#contact" class="btn-primary">
+              Get a Quote
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <a href="#capabilities" class="btn-ghost">See Capabilities</a>
+          </div>
+        </div>
       </div>
     </div>
 
